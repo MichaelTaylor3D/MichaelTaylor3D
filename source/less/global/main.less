@@ -1,0 +1,100 @@
+@import 'colors.less';
+@import 'mixins.less';
+
+@nav_font: 24px;
+@zindex_front: 9999;
+
+//Global Font Family
+html * { font-family: 'Lato', sans-serif !important; }
+
+//place the body below the fixed navigation
+body {  margin-top: 100px; }
+
+.Nav {    
+     
+  background-color: #FFF;  
+  width:100%;
+  position: fixed;
+  z-index: @zindex_front;
+  font-size: @nav_font;
+  
+  .Nav_content { margin: 27px 166px 27px 166px; }
+  
+  ul { 
+    float: right; 
+    transform: translateY(30%);
+  }
+  
+  li { 
+    display: inline; 
+    padding-left: 31px;    
+  }
+    
+  a { text-decoration: none !important; }
+  a:link a:visited { color: #000 !important; }
+  a:hover, a:active{ color: @theme_color !important;}
+    
+  //Switch to drop down on smaller screens 
+  @media (max-width:1155px)  {
+    a { color: #fe9b1a !important; }
+  }
+  
+}
+
+.font {
+  &.dark { color: @font_dark; }  
+  &.light { color: @font_light; }
+  &.blue { color: @theme_color; }
+  &.title { color: @nav_font}
+  
+  &.small {
+    font-size: 14px;
+    font-weight: bold;
+  }  
+}
+
+.social {
+  position: fixed;
+  margin-top: 80px;
+  margin-left: -41px;
+  z-index: @zindex_front;
+  text-transform: uppercase;
+  @button_size: 42px; 
+    
+  ul { list-style-type: none; }
+  li { 
+    
+    color: #FFF;
+    width: @button_size;
+    height: @button_size;  
+    cursor: pointer; 
+    overflow: hidden;
+    font-weight: bold;
+    .transition(width 0.5s);   
+    
+    p { 
+      .vertical-align(); 
+      margin-left: 47px;
+    }
+    
+    &:hover { width: 190px; }   
+    
+    &.facebook  { font-family: FontAwesome; .gradient(#4d71a0, #3a6296, '../svg/facebook.svg'); } 
+    &.twitter { .gradient(#419ceb, #2c91e9, '../svg/twitter.svg'); }  
+    &.google { .gradient(#f1513e, #f03e29, '../svg/google.svg'); }
+    &.github { .gradient(#333333, #1d1d1d, '../svg/github.svg'); }
+    &.stackoverflow { .gradient(#fe9b1a, #fe9001, '../svg/stackoverflow.svg'); }
+    &.shutterstock { .gradient(#ef4639, #ed3223, '../svg/shutterstock.svg'); }
+    &.turbosquid { .gradient(#ff8019, #ff7200, '../svg/turbosquid.svg'); }
+    &.email { .gradient(#1975d1, #0066cc, '../svg/email.svg'); }        
+  }
+}
+
+svg {
+  fill: white;
+  path: white;
+  scale: 80%;
+}
+
+
+

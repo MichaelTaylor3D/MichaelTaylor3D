@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * Implements hook_libraries_info().
+ */
+function bootstrap_libraries_info() {
+  $libraries = array();
+  $libraries['bootstrap'] = array(
+    'name' => 'bootstrap',
+    'vendor url' => 'http://http://jquery.com/',
+    'download url' => 'https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0',
+    'version callback' => 'short_circuit_version',
+    'files' => array(
+      'js' => array(
+        'js/bootstrap.min.js',
+      ),
+      'css' => array(
+      	'css/bootstrap.min.css'
+	  ),
+    ),
+  );
+ 
+  return $libraries;
+}
+
+/**
+* Short-circuit the version argument.
+*/
+function short_circuit_version() { 
+  return TRUE;
+}

@@ -1,0 +1,14 @@
+name = Bootstrap
+description = Registers Bootstrap Library
+core = 7.x
+
+dependencies[] = libraries (>=7.x-2.0)
+
+files[] = bootstrap.install
+files[] = bootstrap.module
+
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "External Libraries"
+datestamp = "1397404157"
+

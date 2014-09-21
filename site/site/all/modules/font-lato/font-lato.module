@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * Implements hook_libraries_info().
+ */
+function jquery_libraries_info() {
+  $libraries = array();
+  $libraries['lato'] = array(
+    'name' => 'lato',
+    'vendor url' => 'http://http://google.com//',
+    'download url' => 'http://fonts.googleapis.com',
+    'version callback' => 'short_circuit_version',
+    'files' => array(
+      'js' => array(
+        'css?family=Lato',
+      ),
+    ),
+  );
+ 
+  return $libraries;
+}
+
+/**
+* Short-circuit the version argument.
+*/
+function short_circuit_version() { 
+  return TRUE;
+}

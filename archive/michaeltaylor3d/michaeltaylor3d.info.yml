@@ -1,0 +1,32 @@
+name: michaeltaylor3d
+type: theme
+description: 'MichaelTaylor3D theme'
+package: Core
+# version: VERSION
+# core: 8.x
+stylesheets:
+  all:
+    - css/bootstrap.min.css
+    - css/styles.min.css
+    - css/font-awesome/css/font-awesome.min.css
+
+# Enable prius-selectivizr javascript bundle
+libraries:
+  - selectivizr
+
+regions:
+  header: Header
+  help: Help
+  highlighted: Highlighted
+  social: Social
+  author: Author
+  featured: Featured
+  content: Content
+  footer: Footer
+  
+
+# Information added by Drupal.org packaging script on 2014-09-04
+version: '8.0.0'
+core: '8.x'
+project: 'drupal'
+datestamp: 1409844500

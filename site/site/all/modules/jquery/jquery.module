@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * Implements hook_libraries_info().
+ */
+function jquery_libraries_info() {
+  $libraries = array();
+  $libraries['jquery'] = array(
+    'name' => 'jquery',
+    'vendor url' => 'http://http://jquery.com//',
+    'download url' => 'http://ajax.aspnetcdn.com/ajax/jQuery',
+    'version callback' => 'short_circuit_version',
+    'files' => array(
+      'js' => array(
+        'jquery-2.1.1.min.js',
+      ),
+    ),
+  );
+ 
+  return $libraries;
+}
+
+/**
+* Short-circuit the version argument.
+*/
+function short_circuit_version() { 
+  return TRUE;
+}
