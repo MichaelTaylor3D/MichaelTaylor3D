@@ -8,14 +8,14 @@
 html * { font-family: 'Lato', sans-serif !important; }
 
 //place the body below the fixed navigation
-body {  margin-top: 100px; }
+body {  margin-top: 0 }
 
 .Nav {    
      
   background-color: #FFF;  
   width:100%;
-  position: fixed;
-  z-index: @zindex_front;
+  //position: fixed;
+  //z-index: @zindex_front;
   font-size: @nav_font;
   
   .Nav_content { margin: 27px 166px 27px 166px; }
@@ -94,6 +94,25 @@ svg {
   fill: white;
   path: white;
   scale: 80%;
+}
+
+.banner {
+  img {
+    width: 100%;
+    position:relative;
+  }
+  
+  .title {
+    color: #333333;
+    font-size: 72px;
+    font-size: 4.5vw;
+    font-weight: 300;
+    left: 0;
+    position:absolute;
+    text-align:center;
+    top: 50%;
+    width: 100%
+  }
 }
 
 

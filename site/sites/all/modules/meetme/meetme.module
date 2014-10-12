@@ -1,0 +1,199 @@
+<?php
+
+define('MEETME_BLOCK1', 'meetme-block1');
+
+function meetme_page_build() 
+{
+
+  drupal_add_js(drupal_get_path('module', 'meetme') . '/js/meetme_module.js');
+  drupal_add_css(drupal_get_path('module', 'meetme') . '/css/meetme_module.css');
+
+}
+
+
+/**
+* Implements hook_block_info().
+*/
+function meetme_block_info() 
+{
+	$blocks = array();
+	$blocks['meet_me'] = array(
+		'info' => t('Meet Me Block'),
+	 );
+	
+	return $blocks;
+ }
+
+ /**
+* Implements hook_block_configure().
+*/
+function meetme_block_configure($delta='') 
+{
+	$form = array();
+	
+	switch($delta) {
+	case 'meet_me' :
+		// Text field form element
+		$form['text_body'] = array(
+			'#type' => 'text_format',
+			'#title' => t('Enter your text here in WYSIWYG format'),
+			'#default_value' => variable_get('text_variable', ''),
+		 );
+		 
+		 //link field
+      $form['link_container'] = array(
+        '#type' => 'container',
+        '#attributes' => array('class' => array('meetme-link')),
+        '#tree' => TRUE,
+      );
+      $form['link_container']['link'] = array(
+        '#type' => 'link_field',
+        '#field_name' => 'link_field',
+        '#language' => 'und', // how to fix this??
+        '#field_parents' => array(),
+        '#delta' => 0,
+        '#default_value' => array(
+          'title' => variable_get('link_title', ''),
+          'url' => variable_get('link_url', ''),
+        ),
+      );
+		
+		
+		// File selection form element
+		$form['file'] = array(
+			'#name' => 'block_image',
+			'#type' => 'managed_file',
+			'#title' => t('Choose an Image File'),
+			'#description' => t('Select an Image for the custom block. Only *.gif, *.png, *.jpg, and *.jpeg images allowed.'),
+			'#upload_location' => 'public://',
+			'#default_value' => variable_get('block_image_fid', ''),
+			'#upload_validators' => array(
+			'file_validate_extensions '=> array('gif png jpg jpeg'),
+			),
+		);
+		
+		
+		break;
+	}
+	return $form;
+}
+
+/**
+* Implements hook_block_save().
+*/
+function meetme_block_save($delta = '', $edit = array()) 
+{
+	switch($delta) {
+	case 'meet_me' :
+		// Saving the WYSIWYG text
+		variable_set('text_variable', $edit['text_body']['value']);
+		variable_set('link_title', $edit['link_container']['link']['title']);
+      	variable_set('link_url', $edit['link_container']['link']['url']);
+		
+		// Saving the file, setting it to a permanent state, setting a FID variable
+		$file = file_load($edit['file']);
+		$file->status = FILE_STATUS_PERMANENT;
+		file_save($file);
+		$block = block_load('meetme', $delta);
+		file_usage_add($file, 'meetme', 'block', $block->bid);
+		variable_set('block_image_fid', $file->fid);
+		break;
+	}
+}
+
+/**
+* Implements hook_block_view().
+*/
+function meetme_block_view($delta='') 
+{
+	$block = array();
+	
+	switch($delta) {
+		case 'meet_me' :
+			$block['content'] = block_view();
+			break;
+	 }
+	
+	return $block;
+ }
+
+/**
+* Custom function to assemble renderable array for block content.
+* Returns a renderable array with the block content.
+* @return
+* returns a renderable array of block content.
+*/
+function block_view() 
+{
+	$block = array();
+	
+	// Capture the image file path and form into HTML with attributes
+	$image_file = file_load(variable_get('block_image_fid', ''));
+	$image_path = '';
+	
+	if (isset($image_file->uri)) {
+		$image_path = $image_file->uri;
+	 }
+	
+	$image = theme_image(array(
+		'path' => image_style_url('author', $image_path),
+		'alt' => t('Image description here.'),
+		'title' => t('This is our block image.'),
+		'attributes' => array('class' => 'meetme'),
+	 ));
+	
+	// Capture WYSIWYG text from the variable
+	$text = variable_get('text_variable', '');
+	$link_title = variable_get('link_title', '');
+	$link_url = variable_get('link_url', '');
+	
+	// Block output in HTML with div wrapper
+	$block = array(
+		'image' => array(
+			'#prefix' => '
+			
+			',
+			'#type' => 'markup',
+			'#markup' => "<div class='row'><div class='col-md-4'>$image</div>",
+		),
+		'message' => array(
+			'#type' => 'markup',
+			'#markup' => "<div class='col-md-4'><div class='meetme excerpt'>$text</div></div>",			
+		),
+		'link' => array(
+			'#type' => 'markup',
+			'#markup' => "<div class='col-md-4'><div class='meetme button'><a href='$link_url'>$link_title</a></div></div></div>",
+		),
+	 );
+	
+	return $block;
+}
+
+/**
+ * Implements hook_theme_registery_alter().
+ */
+function meetme_theme_registry_alter(&$theme_registry) 
+{
+  $theme_registry_copy = $theme_registry;
+  $module_path = drupal_get_path('module', 'meetme');
+  _theme_process_registry($theme_registry_copy, 'phptemplate', 'theme_engine', 'meetme', $module_path);
+  $theme_registry += array_diff_key($theme_registry_copy, $theme_registry);
+  // A list of templates the module will provide templates for
+  $hooks = array('page');
+  foreach ($hooks as $hook) {
+    // Add the key 'theme paths' if it doesn't exist in this theme's registry
+    if (!isset($theme_registry[$hook]['theme paths'])) {
+      $theme_registry[$hook]['theme paths'] = array();
+    }
+    // Shift this module's directory to the top of the theme path list
+    if (is_array($theme_registry[$hook]['theme paths'])) {
+      $first_element = array_shift($theme_registry[$hook]['theme paths']);
+      if ($first_element) {
+        array_unshift($theme_registry[$hook]['theme paths'], $first_element, $module_path);
+      }
+      else {
+        array_unshift($theme_registry[$hook]['theme paths'], $module_path);
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Install and uninstall code for Custom Module.
+ *
+ * Long description here.
+ */
+
+
+/**
+ * Implements hook_install().
+ */
+function meetme_install() {
+
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function meetme_uninstall() {
+
+  // Do some things on uninstall, like deleting all variables.
+}

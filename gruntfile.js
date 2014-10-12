@@ -3,7 +3,7 @@ module.exports = function(grunt) {
     var baseDir = "";
     var source = baseDir + "source/";
     var assets = baseDir + "assets/";
-    var theme = "site/site/all/themes/mt3d/";
+    var theme = "site/sites/all/themes/boilerplate/";
 
     var javascript = {
         libraries: [        
