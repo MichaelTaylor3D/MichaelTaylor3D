@@ -1,3 +1,0 @@
-user: ichaeni1_admin
-pw: &Q_RnTHn#g0a
-db: ichaeni1_drupal_mt3d
