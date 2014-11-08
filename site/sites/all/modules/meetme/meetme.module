@@ -5,8 +5,8 @@ define('MEETME_BLOCK1', 'meetme-block1');
 function meetme_page_build() 
 {
 
-  drupal_add_js(drupal_get_path('module', 'meetme') . '/js/meetme_module.js');
-  drupal_add_css(drupal_get_path('module', 'meetme') . '/css/meetme_module.css');
+  //drupal_add_js(drupal_get_path('module', 'meetme') . '/js/meetme_module.js');
+  drupal_add_css(drupal_get_path('module', 'meetme') . '/css/meetme_module.css.less');
 
 }
 
@@ -139,7 +139,7 @@ function block_view()
 		'path' => image_style_url('author', $image_path),
 		'alt' => t('Image description here.'),
 		'title' => t('This is our block image.'),
-		'attributes' => array('class' => 'meetme'),
+		'attributes' => array('class' => 'meetme avatar'),
 	 ));
 	
 	// Capture WYSIWYG text from the variable
@@ -150,19 +150,17 @@ function block_view()
 	// Block output in HTML with div wrapper
 	$block = array(
 		'image' => array(
-			'#prefix' => '
-			
-			',
+			'#prefix' => '',
 			'#type' => 'markup',
-			'#markup' => "<div class='row'><div class='col-md-4'>$image</div>",
+			'#markup' => "<div class='row'><div class='large-2 columns'>$image</div>",
 		),
 		'message' => array(
 			'#type' => 'markup',
-			'#markup' => "<div class='col-md-4'><div class='meetme excerpt'>$text</div></div>",			
+			'#markup' => "<div class='large-6 columns'><div class='meetme excerpt'>$text</div></div>",			
 		),
 		'link' => array(
 			'#type' => 'markup',
-			'#markup' => "<div class='col-md-4'><div class='meetme button'><a href='$link_url'>$link_title</a></div></div></div>",
+			'#markup' => "<div class='large-3 columns'><div class='meetme button'><a href='$link_url'>$link_title</a></div></div></div>",
 		),
 	 );
 	

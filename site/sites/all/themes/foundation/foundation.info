@@ -1,0 +1,32 @@
+name = Foundation
+description = Metaltoad HTML5/SASS base theme for Drupal 7
+screenshot = images/screenshot.png
+core = 7.x
+version = 1.x-dev
+project = MichaelTaylor3D
+engine = phptemplate
+
+regions[header] = Header
+regions[navbar] = Navigation Bar
+regions[content] = Content
+regions[footer] = Footer
+
+scripts[] = js/libs/modernizr-2.6.2-respond-1.1.0.min.js
+scripts[] = js/script.js
+scripts[] = js/plugins.js
+
+
+
+
+stylesheets[all][] = css/foundation.min.css
+stylesheets[all][] = css/normalize.css
+stylesheets[all][] = css/styles.min.css
+
+settings[clear_registry] = 1
+
+; Information added by Drupal.org packaging script on 2014-06-06
+version = "7.x-1.10"
+core = "7.x"
+project = "boilerplate"
+datestamp = "1402073928"
+
