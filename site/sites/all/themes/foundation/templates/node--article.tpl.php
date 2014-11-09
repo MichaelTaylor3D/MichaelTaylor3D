@@ -7,13 +7,19 @@
 		$previous_nid = foundation_get_previous_blog_id($node->nid);
 ?>
 
-<div class="row">
-	<div class="large-2 columns">
-		<div class="<?print ($previous_nid != 0) ? 'button change-blog-button' : 'change-blog-button inactive' ?>" onclick="location.href='/?q=node/<? print $previous_nid ?>';">
+<div class="row blog">
+	<div class="large-3 columns">
+		<div class="<? print ($previous_nid != 0) ? 'button change-blog-button' : 'change-blog-button inactive' ?>" onclick="location.href='/?q=node/<? print $previous_nid ?>';">
 			&#8592; Previous
 		</div>
+		<div class="bitcoin-tip">
+			<center>
+				<?php $block = module_invoke('bitcoin_donation', 'block_view', 'bitcoin_donation_block');
+				 print render($block['content']); ?>
+			</center>
+		</div>
 	</div>
-	<div class="large-8 centered columns">
+	<div class="large-7 centered columns">
 		<article>
 			<div class="blog-body">
 				<? print $body['safe_value'] ?>

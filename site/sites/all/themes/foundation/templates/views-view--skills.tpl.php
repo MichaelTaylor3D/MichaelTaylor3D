@@ -1,4 +1,4 @@
-<center><h4>Gallery</h4></center>
+<span class="anchor" id="skills"></span>
 <div class="row">
 	<?php if ($rows): ?>
 	    <div class="view-content">

@@ -3,7 +3,7 @@
 ?>
 
 <div class="resume">
-	
+	<span class="anchor" id="work"></span>
 	<h1>Work Experiance</h1>
 	<? foreach ($wrapper->field_resume as $field_resume) : ?>
 		<section>
@@ -29,7 +29,8 @@
 			</div>
 		</section>	
 	<? endforeach ?>
-
+	
+	<span class="anchor" id="education"></span>
 	<h1>Education</h1>
 	<? foreach ($wrapper->field_education as $field_education) : ?>
 		<section>
@@ -51,5 +52,7 @@
 			</div>	
 		</section>	
 	<? endforeach ?>	
+	
+	<span class="anchor" id="activities"></span>
 	
 </div>
