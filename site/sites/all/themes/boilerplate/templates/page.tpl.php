@@ -23,6 +23,11 @@
         	</span>     
 	    </div>
 	</div> 
+<div class="social">
+	<ul>
+		<li class="facebook">Facebook</li>
+	</ul>
+</div>
 
 <div class="page_content">
     <div class="content">
